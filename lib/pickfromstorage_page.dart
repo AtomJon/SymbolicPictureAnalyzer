@@ -1,46 +1,39 @@
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
+
 import 'package:flutter/material.dart';
+
 import 'constrained_image.dart';
-import 'image_utils.dart';
 import 'main_page.dart';
 
-class PickPictureFromAddressPage extends StatefulWidget {
-  const PickPictureFromAddressPage({super.key});
+class PickPictureFromStoragePage extends StatefulWidget {
+  const PickPictureFromStoragePage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _PickPictureFromAddressPageState();
+  State<StatefulWidget> createState() => _PickPictureFromStoragePageState();
 }
 
-class _PickPictureFromAddressPageState
-    extends State<PickPictureFromAddressPage> {
-  ImageProvider? currentImage;
-
-  void testAndAssignImage(String uri) {
-    validateImage(uri).then((bool isValidImageFuture) => {
-      setState(() {
-        if (isValidImageFuture) {
-            currentImage = NetworkImage(uri);
-          }
-          else {
-            currentImage = null;
-          }
-        })
-      });
-  }
-
+class _PickPictureFromStoragePageState
+    extends State<PickPictureFromStoragePage> {
+  MemoryImage? currentImage;
+  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Skriv venligst addressen ind nedenunder:',
-              textScaleFactor: 1.5,
+            ElevatedButton(
+              onPressed: _onPickFileBtnClick,
+              child: const Text(
+                'Vælg et billede',
+                textScaleFactor: 1.5,
+              )
             ),
-            MyCustomForm(textChanged: _onFormChanged),
-            if (currentImage != null) 
+            if (currentImage != null)
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ConstrainedImage(image: currentImage!)
@@ -61,8 +54,23 @@ class _PickPictureFromAddressPageState
     );
   }
 
-  void _onFormChanged(String text) {
-    testAndAssignImage(text);
+  Future<void> _onPickFileBtnClick() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      withData: true
+    );
+    
+    if (result != null) {
+      final Uint8List? data = result.files[0].bytes;
+      
+      if (data != null) {
+        setState(() {
+        currentImage = MemoryImage(data);
+        });
+      }
+    } else {
+      
+    }
   }
   
   void _onContinueBtnClick(BuildContext context) {

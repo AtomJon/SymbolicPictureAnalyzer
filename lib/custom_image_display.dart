@@ -1,5 +1,7 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
-import 'package:http/retry.dart';
 
 class CustomImageDisplay extends StatelessWidget {
   const CustomImageDisplay({
@@ -21,13 +23,75 @@ class CustomImageDisplay extends StatelessWidget {
   //   return _CustomImageDisplayState();
   // }
   
+  Future<Size> _getDimensionsOfCurrentImage() async {
+    final Completer<Size> completer = Completer();
+    
+    image.resolve(ImageConfiguration.empty).addListener(ImageStreamListener(
+      (ImageInfo image, bool synchronousCall) {
+        final myImage = image.image;
+        final size = Size(myImage.width.toDouble(), myImage.height.toDouble());
+        completer.complete(size);
+      }
+    ));
+      
+    return completer.future;
+  }
+  
   @override
   Widget build(BuildContext context) {    
-    return CustomPaint(
-      foregroundPainter: _ForegroundPainter(
-        drawGoldenCut: shouldGoldenCut,
-      ),
-      child: Image(image: image,)
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
+    
+    final imageHeight = h * 0.75;
+    final imageWidth = w * 0.75;
+    
+    final imgSizeFuture = _getDimensionsOfCurrentImage();
+    
+    return FutureBuilder(
+      future: imgSizeFuture,
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+        {
+          var targetSize = snapshot.data! as Size;
+          
+          // if (targetSize.longestSide == targetSize.height)
+          // {
+          //   targetSize *= imageHeight / targetSize.height;
+          // }
+          // else
+          // {
+          //   targetSize *= imageWidth / targetSize.width;
+          // }
+          
+          
+          // final aspectRatio = targetSize.aspectRatio;
+          
+          
+          var heightDifference =  imageHeight / targetSize.height;
+          var widthDifference = imageWidth / targetSize.width;
+          
+          targetSize *= min(heightDifference, widthDifference);
+          
+          
+          return /* AspectRatio(
+            aspectRatio: aspectRatio,
+            child:  */SizedBox(
+              height: targetSize.height,
+              width: targetSize.width,
+              child: CustomPaint(
+                foregroundPainter: _ForegroundPainter(
+                  drawGoldenCut: shouldGoldenCut,
+                ),
+                child: Image(image: image, height: targetSize.height, width: targetSize.width,),
+              ),
+            // ),
+          );
+        }
+        else
+        {
+          return const Text('Loading...');
+        }
+      },
     );
   }
 }
@@ -48,6 +112,8 @@ class _ForegroundPainter extends CustomPainter {
   }
   
   void _drawGoldenCut(Canvas canvas, Size size) {
+    print(size);
+    
     _drawHorizontalGoldenCutLines(canvas, size);
     _drawVerticalGoldenCutLines(canvas, size);
   }

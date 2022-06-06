@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pickfromaddress_page.dart';
+import 'pickfromstorage_page.dart';
 
 class EntrancePage extends StatelessWidget {
   const EntrancePage({super.key});
@@ -19,9 +20,16 @@ class EntrancePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 OutlinedButton(
-                  onPressed: () => _onAddressChoiceClick(context),
+                  onPressed: () => _onChoiceClick(context, const PickPictureFromAddressPage()),
                   child: const Text(
-                    'Vælg billede fra adresse',
+                    'Vælg et billede fra adresse',
+                    textScaleFactor: 1.5,
+                  ),
+                ),                
+                OutlinedButton(
+                  onPressed: () => _onChoiceClick(context, const PickPictureFromStoragePage()),
+                  child: const Text(
+                    'Vælg et billede fra fil',
                     textScaleFactor: 1.5,
                   ),
                 )
@@ -32,9 +40,9 @@ class EntrancePage extends StatelessWidget {
   }
 }
 
-void _onAddressChoiceClick(BuildContext context) {
+void _onChoiceClick(BuildContext context, Widget page) {
   Navigator.of(context)
-      .push(_createRouteToPage(const PickPictureFromAddressPage()));
+      .push(_createRouteToPage(page));
 }
 
 Route<void> _createRouteToPage(Widget page) {

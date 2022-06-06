@@ -49,6 +49,7 @@ class _MainPageState extends State<MainPage> {
                 splashRadius: 20,
                 icon: const Icon(Icons.grid_goldenratio,),
                 onPressed: _goldenRatioBtnClick,
+                tooltip: 'Det Gyldne Snit',
               )
             ],
           )
