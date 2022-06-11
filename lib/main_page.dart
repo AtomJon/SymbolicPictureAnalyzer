@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'custom_image_display.dart';
+import 'custom_image_display/custom_image_display.dart';
 
 class MainPageArguments {
   const MainPageArguments(this.image);
@@ -22,10 +22,8 @@ class MainPage extends StatefulWidget {
   
 }
 
-class _MainPageState extends State<MainPage> {
-  // Image get image => widget.image;
-  
-  bool goldenCutOn = false;
+class _MainPageState extends State<MainPage> {  
+  final CustomImageDisplayOptions options = CustomImageDisplayOptions();
   
   @override
   Widget build(BuildContext context) {
@@ -34,34 +32,72 @@ class _MainPageState extends State<MainPage> {
     
     final image = CustomImageDisplay(
       image: args!.image,
-      applyGoldenCut: goldenCutOn,
+      options: options
     );
     
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Længde Af Fibonacci'),
+              Slider(
+                label: options.fibonacciScale.toString(),
+                value: options.fibonacciScale,
+                onChanged: (double v) => setState(() {
+                  options.fibonacciScale = v;
+                }),
+                max: 100,
+              ),
+              const Text('Størrelse Af Fibonacci'),
+              Slider(
+                label: options.fibonacciRadius.toString(),
+                value: options.fibonacciRadius,
+                onChanged: (double v) => setState(() {
+                  options.fibonacciRadius = v;
+                }),
+                min: 1,
+                max: 16,
+              ),
+            ],
+          ),
           Center(child: image),
+        ],
+      ),
+      appBar: AppBar(),
+      persistentFooterButtons: [
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: [
               IconButton(
                 splashRadius: 20,
-                icon: const Icon(Icons.grid_goldenratio,),
+                icon: const Icon(Icons.grid_goldenratio),
                 onPressed: _goldenRatioBtnClick,
                 tooltip: 'Det Gyldne Snit',
-              )
+              ),
+              IconButton(
+                splashRadius: 20,
+                icon: const Icon(Icons.circle),
+                onPressed: _fibonacciBtnClick,
+                tooltip: 'Fibonacci Spiral',
+              ),
             ],
           )
-        ],
-      ),
-      appBar: AppBar(),
+      ],
     );
   }
 
   void _goldenRatioBtnClick() {
     setState(() {
-      goldenCutOn = !goldenCutOn;
+      options.applyGoldenCut ^= true;
+    });
+  }
+
+  void _fibonacciBtnClick() {
+    setState(() {
+      options.applyFibonacci ^= true;
     });
   }
 }
