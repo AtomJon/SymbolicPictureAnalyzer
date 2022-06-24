@@ -7,7 +7,7 @@
         {
             "name": "symbolic_picture_analyzer",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
         },
         {
             "name": "symbolic_picture_analyzer (profile mode)",

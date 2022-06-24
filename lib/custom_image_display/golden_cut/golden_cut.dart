@@ -12,7 +12,7 @@ class GoldenCutDrawer {
     _drawVerticalGoldenCutLines(canvas, size);
   }
   
-  void _drawHorizontalGoldenCutLines(Canvas canvas, Size size) {
+  void _drawHorizontalGoldenCutLines(Canvas canvas, Size size) {    
     final squares = size.width / 8;
     
     const top = .0;

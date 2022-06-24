@@ -26,16 +26,17 @@ List<Point> getSpiralVertices(Point pA, Point pB, double maxRadius){
     // Continue drawing until reaching maximum radius
     while (radius * scale <= maxRadius){
 
-        path.add(Point(
-            scale * radius * cos(angle + angleOffset) + pA.x,
-            scale * radius * sin(angle + angleOffset) + pA.y
-        ));
+      path.add(Point(
+        scale * radius * cos(angle + angleOffset) + pA.x,
+        scale * radius * sin(angle + angleOffset) + pA.y
+      ));
 
-        i++; // Next point
-        step = i / precision; // 1/4 turns at point    
-        radius = fibonacci.getNumber(step); // Radius of Fibonacci spiral
-        angle = step * pi / 2; // Radians at point
-    }    
+      i++; // Next point
+      step = i / precision; // 1/4 turns at point    
+      radius = fibonacci.getNumber(step); // Radius of Fibonacci spiral
+      angle = step * pi / 2; // Radians at point
+    }
+    
     return path;
 }
 
