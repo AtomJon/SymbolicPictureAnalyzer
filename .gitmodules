@@ -1,0 +1,3 @@
+[submodule "lib/external/Flutter-Resizable-Widget"]
+	path = lib/external/Flutter-Resizable-Widget
+	url = https://github.com/MohammadAminZamaniAfshar/Flutter-Resizable-Widget
