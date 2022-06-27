@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert' show base64Encode;
 
 import 'dart:io';
 import 'dart:ui';
@@ -13,11 +12,11 @@ import '../channel_const.dart';
 class ImageSaver {
   ImageSaver({required this.image});
   
-  static const platform = MethodChannel('com.my_plugin/my_plugin');
+  static const platform = MethodChannel(SaveScreenshotPlugin.channel);
   
   final Image image;
   
-  Future save(Image image) async {                                      
+  Future<void> save(Image image) async {         
     final ByteData? byteData = await image.toByteData(format: ImageByteFormat.png);
     if (byteData == null) return;
     
@@ -42,11 +41,11 @@ class ImageSaver {
     }
   }
 
-void saveWeb(ByteData byteData) {    
-  platform.invokeMethod(SaveScreenshotMethod.method, byteData.buffer.asUint8List());
-}
+  void saveWeb(ByteData byteData) {
+    platform.invokeMethod(SaveScreenshotPlugin.method, byteData.buffer.asUint8List());
+  }
   
-  Future saveDesktop(ByteData byteData) async {
+  Future<void> saveDesktop(ByteData byteData) async {
     final filePath = await promptPngPath();
     if (filePath == null) return;
     
@@ -61,6 +60,7 @@ void saveWeb(ByteData byteData) {
     return FilePicker.platform.saveFile(
       fileName: 'billede.png',
       allowedExtensions: ['png'],
+      type: FileType.image
     );
   }  
 }

@@ -1,10 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -185,12 +181,8 @@ class CustomImageDisplayState extends State<CustomImageDisplay> {
     );
   }
   
-  Future saveScreen() async {
+  Future<void> saveScreen() async {
     final RenderRepaintBoundary boundary = scr.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-    if (boundary.debugNeedsPaint) {
-      Timer(const Duration(seconds: 1), () => saveScreen());
-      return null;
-    }
     
     final image = await boundary.toImage();
     
