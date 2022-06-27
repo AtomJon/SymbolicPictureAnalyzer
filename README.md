@@ -3,13 +3,16 @@
 Dette projekt tager et billede og lægger forskellige ting over, der kan hjælpe med at analysere billedet.
 For eksempel, "Det Gyldne Snit."
 
+## Hvor kan jeg få denne app?
+Du kan downloade appen [her](https://github.com/AtomJon/SymbolicPictureAnalyzer/releases/tag/v1.0), eller bruge den online på [NeutronicWorks.dk](https://neutronicworks.dk/PictureManipulator/).
+
 ## Hvordan bruger man denne app?
 
 ### Trin 1
 Åben applikationen og vælg en måde til at vælge billedet.
 
 **Du kan ikke vælge et billede med adresse hvis du bruger applikationen på [NeutronicWorks.dk](https://neutronicworks.dk/PictureManipulator/).**
-![image](https://user-images.githubusercontent.com/61199529/175932542-8a2d3e10-7688-4f40-88e5-f9b14aef1cfb.png)
+![image](https://user-images.githubusercontent.com/61199529/175932542-8a2d3e10-7688-4f40-88e5-f9b14aef1cfb.png).
 
 
 
