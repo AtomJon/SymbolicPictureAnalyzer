@@ -35,6 +35,10 @@ analyzer:
     - "bin/cache/**"
       # Ignore protoc generated files
     - "dev/conductor/lib/proto/*"
+    
+    - "lib/external/**"
+    
+    - "lib/generated_plugin_registrant.dart"
 
 linter:
   rules:
