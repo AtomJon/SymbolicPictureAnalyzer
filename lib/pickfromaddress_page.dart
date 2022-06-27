@@ -36,10 +36,10 @@ class _PickPictureFromAddressPageState
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'Skriv venligst addressen ind nedenunder:',
+              'Skriv venligst adressen ind nedenunder:',
               textScaleFactor: 1.5,
             ),
-            MyCustomForm(textChanged: _onFormChanged),
+            _AddressInputForm(textChanged: _onFormChanged),
             if (currentImage != null) 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -71,16 +71,16 @@ class _PickPictureFromAddressPageState
   }
 }
 
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key, required this.textChanged});
+class _AddressInputForm extends StatefulWidget {
+  const _AddressInputForm({required this.textChanged});
 
   final void Function(String) textChanged;
 
   @override
-  State<MyCustomForm> createState() => _MyCustomFormState();
+  State<_AddressInputForm> createState() => _AddressInputFormState();
 }
 
-class _MyCustomFormState extends State<MyCustomForm> {
+class _AddressInputFormState extends State<_AddressInputForm> {
   String? lastInputValue;
   
   @override
@@ -100,7 +100,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             },
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Enter a search term',
+              hintText: 'https://smk.com/...',
             ),
           ),
         ),

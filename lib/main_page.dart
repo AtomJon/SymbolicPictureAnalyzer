@@ -128,7 +128,7 @@ class _MainPageState extends State<MainPage> {
               ),
               IconButton(
                 splashRadius: 20,
-                icon: const Icon(Icons.circle),
+                icon: const Icon(Icons.storm),
                 onPressed: _fibonacciBtnClick,
                 tooltip: 'Fibonacci Spiral',
               ),
