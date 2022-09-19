@@ -20,7 +20,7 @@ jobs:
      - run: flutter build windows
      - uses: actions/upload-artifact@v3.1.0
        with:
-         path: build/windows
+         path: build
      
       
       
