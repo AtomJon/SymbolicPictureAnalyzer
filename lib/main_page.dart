@@ -98,7 +98,7 @@ class _MainPageState extends State<MainPage> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: OutlinedButton(
-                  onPressed: () => setState(() => options.isFibonacciResizeable ^= true),
+                  onPressed: () => setState(() => options.applyFibonacciDragWidget ^= true),
                   child: const Text('Skjul/Vis Håndtag')
                 ),
               ),
