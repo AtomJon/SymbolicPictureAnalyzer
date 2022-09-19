@@ -11,7 +11,6 @@ class GoldenCutDrawer {
   }
 
   void _drawHorizontalGoldenCutLines(Canvas canvas, Size size) {
-    print(size);
     final squares = size.width / 8;
 
     const top = .0;
