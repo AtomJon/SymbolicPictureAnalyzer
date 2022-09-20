@@ -21,6 +21,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v3
+         with:
+           submodules: recursive
+       - uses: subosito/flutter-action@v2
+         with:
+           channel: 'beta'
+       - run: flutter config --enable-web
+       - run: flutter build web
+       - uses: actions/upload-artifact@v3.1.0
+         with:
+           path: build/web
+         name: 'web-binary'
   # Single deploy job since we're just deploying
   deploy:
     environment:
