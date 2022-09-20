@@ -1,0 +1,25 @@
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build web binary
+on: workflow_dispatch
+
+jobs:
+ build:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v3
+       with:
+         submodules: recursive
+     - uses: subosito/flutter-action@v2
+       with:
+         channel: 'beta'
+     - run: flutter config --enable-web
+     - run: flutter build web
+     - uses: actions/upload-artifact@v3.1.0
+       with:
+         path: build/web
+         name: 'web-binary'
