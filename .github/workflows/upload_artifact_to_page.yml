@@ -50,12 +50,12 @@ jobs:
       - name: Download latest build
         uses: actions/download-artifact@v3.0.0
         with:
-          path: '~/www/'
+          path: '~/www/' # ~/www/artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: '~/www/'
+          path: '~/www/artifact'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
