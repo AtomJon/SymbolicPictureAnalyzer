@@ -51,7 +51,7 @@ jobs:
         uses: actions/download-artifact@v3.0.0
         with:
           path: '~/www/' # ~/www/artifact
-      - run: 'ls -r ~'
+      - run: 'ls -r ~/www/'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
