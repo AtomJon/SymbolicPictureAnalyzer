@@ -51,8 +51,8 @@ jobs:
         uses: actions/download-artifact@v3.0.0
         with:
           path: '~/www/' # ~/www/artifact
-      - run: 'ls -R ~/www/artiface'
-      - run: 'stat -R ~/www'
+      - run: 'ls -R ~/www'
+      - run: 'stat ~/www/artifact'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
